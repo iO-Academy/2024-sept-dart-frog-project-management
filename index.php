@@ -1,13 +1,15 @@
 <?php
 
 require_once 'src/Services/DatabaseService.php';
-require_once 'src/Models/ProjectsModel.php';
+require_once 'src/Models/UsersModel.php';
 
 $db = DatabaseService::connect();
 
-$projectModel = new ProjectsModel($db);
+$usersModel = new UsersModel($db);
 
-$test = $projectModel->selectProject();
+$test = $usersModel->getAllUsers();
+$testByID = $usersModel->getUserById(10);
 
 echo '<pre>';
-var_dump($test);
+var_dump($testByID);
+
