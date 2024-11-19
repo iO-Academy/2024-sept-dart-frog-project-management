@@ -6,6 +6,7 @@ require_once 'src/Services/ProjectDisplayServices.php';
 require_once 'src/Models/ProjectsModel.php';
 require_once 'src/Services/ClientDisplayService.php';
 require_once 'src/Models/ClientsModel.php';
+require_once 'src/Services/ProjectLinkService.php';
 
 $db = DatabaseService::connect();
 
@@ -16,14 +17,12 @@ $db = DatabaseService::connect();
 //    }
 
 $projectsModel = new ProjectsModel($db);
-$project = $projectsModel->getProjectById(12);
+$project = $projectsModel->getProjectById($idLink);
 $projectTitle = ProjectDisplayService::displayProject($project);
-
-
 
 $ClientsModel = new ClientsModel($db);
 
-$client = $ClientsModel->getClientById(12);
+$client = $ClientsModel->getClientById($idLink);
 
 $clientTitle = ClientDisplayService::displayClient($client);
 
@@ -39,7 +38,7 @@ $clientTitle = ClientDisplayService::displayClient($client);
 </head>
 <body class="h-full">
 <header class="p-3 bg-teal-50 flex justify-between">
-    <h1 class="sm:text-5xl text-4xl"><a href="index.html">Project Manager</a></h1>
+    <h1 class="sm:text-5xl text-4xl"><a href="index.php">Project Manager</a></h1>
     <div class="pr-3 flex">
         <a href="project.html" class="p-3 bg-slate-300 rounded-l-lg border-y border-l">🇬🇧</a>
         <a href="project-us.html" class="p-3 rounded-r-lg border-y border-r">🇺🇸</a>
