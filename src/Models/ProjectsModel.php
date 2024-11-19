@@ -25,11 +25,4 @@ class ProjectsModel {
         $query->execute();
         return $query->fetchAll();
     }
-
-    public function displayProjectName(int $id)
-    {
-        $query = $this->db->prepare("SELECT `name` FROM `projects` WHERE `id` = :id;");
-        $query->execute(['id' => $id]);
-        return $query->fetch();
-    }
 }
