@@ -27,7 +27,7 @@ $testProjectbyID = $projectsModel->getProject(4);
 $displayProjects = $projectsModel->getAllProjects();
 
 echo "<h2 class='text-4xl font-bold mb-2'>Projects</h2>";
-    echo "<section class='flex justify-start gap-5 mt-3 flex-wrap md:flex-nowrap'>";
+    echo "<section class='grid grid-cols-1 md:grid-cols-4 gap-5 mt-3'>";
         foreach ($displayProjects as $project)
             {
                 $deadlineDate = $project['deadline'];
@@ -36,12 +36,12 @@ echo "<h2 class='text-4xl font-bold mb-2'>Projects</h2>";
                     $today = date('Y-m-d H:i:s');
                     $todayDate = strtotime($today);
                     if  ($deadline < $todayDate) {
-                        echo "<a href='project.html' class='hover:underline rounded-lg border border-red-600 p-4 py-6 text-4xl font-bold w-full md:w-1/4 bg-red-300'>{$project['name']}</a>";
+                        echo "<a href='project.html' class='hover:underline rounded-lg border border-red-600 p-4 py-6 text-4xl font-bold w-full bg-red-300'>{$project['name']}</a>";
                     } else {
-                        echo "<a href='project.html' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full md:w-1/4 bg-slate-300'>{$project['name']}</a>";
+                        echo "<a href='project.html' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full bg-slate-300'>{$project['name']}</a>";
                     }
                 } else {
-                    echo "<a href='project.html' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full md:w-1/4 bg-slate-300'>{$project['name']}</a>";
+                    echo "<a href='project.html' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full bg-slate-300'>{$project['name']}</a>";
                 }
             }
         echo "</section>";
