@@ -37,12 +37,12 @@ echo "<h2 class='text-4xl font-bold mb-2'>Projects</h2>";
                     $today = date('Y-m-d H:i:s');
                     $todayDate = strtotime($today);
                     if  ($deadline < $todayDate) {
-                        echo "<a href='project.html' class='hover:underline rounded-lg border border-red-600 p-4 py-6 text-4xl font-bold w-full bg-red-300'>{$project['name']}</a>";
+                        echo "<a href='project.php' class='hover:underline rounded-lg border border-red-600 p-4 py-6 text-4xl font-bold w-full bg-red-300'>{$project['name']}</a>";
                     } else {
-                        echo "<a href='project.html' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full bg-slate-300'>{$project['name']}</a>";
+                        echo "<a href='project.php' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full bg-slate-300'>{$project['name']}</a>";
                     }
                 } else {
-                    echo "<a href='project.html' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full bg-slate-300'>{$project['name']}</a>";
+                    echo "<a href='project.php' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full bg-slate-300'>{$project['name']}</a>";
                 }
             }
         echo "</section>";
