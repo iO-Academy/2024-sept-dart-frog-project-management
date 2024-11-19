@@ -19,10 +19,12 @@ $db = DatabaseService::connect();
 $projectsModel = new ProjectsModel($db);
 $project = $projectsModel->getProjectById($idLink);
 $projectTitle = ProjectDisplayService::displayProject($project);
-
+$clientID = $project->client_id;
 $ClientsModel = new ClientsModel($db);
 
-$client = $ClientsModel->getClientById($idLink);
+$client = $ClientsModel->getClientById($clientID);
+
+$clientLogo = $client->logo;
 
 $clientTitle = ClientDisplayService::displayClient($client);
 
@@ -52,7 +54,7 @@ $clientTitle = ClientDisplayService::displayClient($client);
 
         <div class="flex items-center gap-3">
             <h3 class="text-3xl font-bold"><?php echo $clientTitle ?> </h3>
-            <img class="w-[50px]" src="http://dummyimage.com/200x200.png/dddddd/000000" alt="client logo" />
+            <img class="w-[50px]" src="<?php echo $clientLogo ?>" alt="client logo" />
         </div>
     </div>
 
