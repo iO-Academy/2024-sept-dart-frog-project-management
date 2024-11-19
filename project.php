@@ -6,6 +6,7 @@ require_once 'src/Services/ProjectDisplayServices.php';
 require_once 'src/Models/ProjectsModel.php';
 require_once 'src/Services/ClientDisplayService.php';
 require_once 'src/Models/ClientsModel.php';
+require_once 'src/Services/ProjectLinkService.php';
 
 $db = DatabaseService::connect();
 
@@ -16,14 +17,12 @@ $db = DatabaseService::connect();
 //    }
 
 $projectsModel = new ProjectsModel($db);
-$project = $projectsModel->getProjectById(12);
+$project = $projectsModel->getProjectById($idLink);
 $projectTitle = ProjectDisplayService::displayProject($project);
-
-
 
 $ClientsModel = new ClientsModel($db);
 
-$client = $ClientsModel->getClientById(12);
+$client = $ClientsModel->getClientById($idLink);
 
 $clientTitle = ClientDisplayService::displayClient($client);
 

@@ -19,30 +19,33 @@ require_once 'src/Models/ProjectsModel.php';
 require_once 'src/Models/ClientsModel.php';
 require_once 'src/Models/TasksModel.php';
 require_once 'src/Services/ProjectDisplayServices.php';
+require_once 'src/Services/ProjectLinkService.php';
 
 $db = DatabaseService::connect();
-
 $projectsModel = new ProjectsModel($db);
-
-$showProjectbyID = $projectsModel->getProjectById(4);
 $displayProjects = $projectsModel->getAllProjects();
+
+
 
 echo "<h2 class='text-4xl font-bold mb-2'>Projects</h2>";
     echo "<section class='grid grid-cols-1 md:grid-cols-4 gap-5 mt-3'>";
         foreach ($displayProjects as $project)
             {
+                $projectID = $project['id'];
+                $linkProject = "project.php?project={$projectID}";
+
                 $deadlineDate = $project['deadline'];
                 if($deadlineDate) {
                     $deadline = strtotime($deadlineDate);
                     $today = date('Y-m-d H:i:s');
                     $todayDate = strtotime($today);
                     if  ($deadline < $todayDate) {
-                        echo "<a href='project.php' class='hover:underline rounded-lg border border-red-600 p-4 py-6 text-4xl font-bold w-full bg-red-300'>{$project['name']}</a>";
+                        echo "<a href='{$linkProject}' class='hover:underline rounded-lg border border-red-600 p-4 py-6 text-4xl font-bold w-full bg-red-300'>{$project['name']}</a>";
                     } else {
-                        echo "<a href='project.php' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full bg-slate-300'>{$project['name']}</a>";
+                        echo "<a href='{$linkProject}' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full bg-slate-300'>{$project['name']}</a>";
                     }
                 } else {
-                    echo "<a href='project.php' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full bg-slate-300'>{$project['name']}</a>";
+                    echo "<a href='{$linkProject}' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full bg-slate-300'>{$project['name']}</a>";
                 }
             }
         echo "</section>";
