@@ -1,7 +1,7 @@
 <?php
 
-include_once 'src/Services/DatabaseService.php';
-
+require_once 'src/Services/DatabaseService.php';
+require_once 'src/Entities/ClientEntity.php';
 class ClientsModel {
     private PDO $db;
 
@@ -13,6 +13,7 @@ class ClientsModel {
     public function getAllClients()
     {
         $query = $this->db->prepare('SELECT * FROM `clients`;');
+        $query->fetchAll(PDO::FETCH_CLASS, ClientEntity::class);
         $query->execute();
         return $query->fetchAll();
     }
@@ -20,6 +21,7 @@ class ClientsModel {
     public function getClientById($id)
     {
         $query = $this->db->prepare("SELECT * FROM `clients` WHERE `id` = :id;");
+        $query->setFetchMode(PDO::FETCH_CLASS, ClientEntity::class);
         $query->execute([
             'id' => $id
         ]);
