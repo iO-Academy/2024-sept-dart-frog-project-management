@@ -24,7 +24,7 @@ $db = DatabaseService::connect();
 
 $projectsModel = new ProjectsModel($db);
 
-$testProjectbyID = $projectsModel->getProject(4);
+$showProjectbyID = $projectsModel->getProjectById(4);
 $displayProjects = $projectsModel->getAllProjects();
 
 echo "<h2 class='text-4xl font-bold mb-2'>Projects</h2>";
