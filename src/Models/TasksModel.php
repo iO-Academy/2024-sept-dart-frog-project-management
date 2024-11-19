@@ -1,6 +1,7 @@
 <?php
 
 require_once 'src/Services/DatabaseService.php';
+require_once 'src/Entities/TaskEntity.php';
 
 class TasksModel
 {

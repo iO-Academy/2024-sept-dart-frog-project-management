@@ -5,6 +5,7 @@ require_once 'src/Models/UsersModel.php';
 require_once 'src/Models/ProjectsModel.php';
 require_once 'src/Models/ClientsModel.php';
 require_once 'src/Models/TasksModel.php';
+require_once 'src/Services/ProjectDisplayServices.php';
 
 $db = DatabaseService::connect();
 
