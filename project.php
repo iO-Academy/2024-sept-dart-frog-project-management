@@ -47,7 +47,7 @@ $clientTitle = ClientDisplayService::displayClient($client);
 <main class="p-3">
     <div class="flex justify-between mb-3">
          <h2 class="text-4xl font-bold mb-2"><?php echo $projectTitle ?>
-            <a href="index.html" class="text-base text-blue-600 hover:underline ms-3">Return to all projects</a>
+            <a href="index.php" class="text-base text-blue-600 hover:underline ms-3">Return to all projects</a>
         </h2>
 
         <div class="flex items-center gap-3">
@@ -66,17 +66,17 @@ $clientTitle = ClientDisplayService::displayClient($client);
                         class="float-right">
                 </h4>
                 <div class="w-full">
-                    <a class="block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl" href="task.html">
+                    <a class="block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl" href="task.php">
                         <h3 class="mb-0 text-red-800 font-bold">mattis
                             <span class="bg-teal-400 px-2 rounded text-white font-bold float-right">3</span>
                         </h3>
                     </a>
-                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.html">
+                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.php">
                         <h3 class="mb-0 font-bold">curae
                             <span class="bg-teal-400 px-2 rounded text-white font-bold float-right">2</span>
                         </h3>
                     </a>
-                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.html">
+                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.php">
                         <h3 class="mb-0 font-bold">curae<span class="badge badge-info float-right"></span></h3>
                     </a>
                 </div>
@@ -91,15 +91,15 @@ $clientTitle = ClientDisplayService::displayClient($client);
                         class="float-right">
                 </h4>
                 <div class="w-full">
-                    <a class="block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl" href="task.html">
+                    <a class="block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl" href="task.php">
                         <h3 class="mb-0 text-red-800 font-bold">mattis
                             <span class="bg-teal-400 px-2 rounded text-white font-bold float-right">3</span>
                         </h3>
                     </a>
-                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.html">
+                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.php">
                         <h3 class="mb-0 font-bold">curae<span class="badge badge-info float-right"></span></h3>
                     </a>
-                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.html">
+                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.php">
                         <h3 class="mb-0 font-bold">curae<span class="badge badge-info float-right"></span></h3>
                     </a>
                 </div>
@@ -114,15 +114,15 @@ $clientTitle = ClientDisplayService::displayClient($client);
                         class="float-right">
                 </h4>
                 <div class="w-full">
-                    <a class="block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl" href="task.html">
+                    <a class="block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl" href="task.php">
                         <h3 class="mb-0 text-red-800 font-bold">mattis
                             <span class="bg-teal-400 px-2 rounded text-white font-bold float-right">3</span>
                         </h3>
                     </a>
-                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.html">
+                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.php">
                         <h3 class="mb-0 font-bold">curae<span class="badge badge-info float-right"></span></h3>
                     </a>
-                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.html">
+                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.php">
                         <h3 class="mb-0 font-bold">curae<span class="badge badge-info float-right"></span></h3>
                     </a>
                 </div>
@@ -137,15 +137,15 @@ $clientTitle = ClientDisplayService::displayClient($client);
                         class="float-right">
                 </h4>
                 <div class="w-full">
-                    <a class="block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl" href="task.html">
+                    <a class="block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl" href="task.php">
                         <h3 class="mb-0 text-red-800 font-bold">mattis
                             <span class="bg-teal-400 px-2 rounded text-white font-bold float-right">3</span>
                         </h3>
                     </a>
-                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.html">
+                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.php">
                         <h3 class="mb-0 font-bold">curae<span class="badge badge-info float-right"></span></h3>
                     </a>
-                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.html">
+                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.php">
                         <h3 class="mb-0 font-bold">curae<span class="badge badge-info float-right"></span></h3>
                     </a>
                 </div>
@@ -160,15 +160,15 @@ $clientTitle = ClientDisplayService::displayClient($client);
                         class="float-right">
                 </h4>
                 <div class="w-full">
-                    <a class="block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl" href="task.html">
+                    <a class="block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl" href="task.php">
                         <h3 class="mb-0 text-red-800 font-bold">mattis
                             <span class="bg-teal-400 px-2 rounded text-white font-bold float-right">3</span>
                         </h3>
                     </a>
-                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.html">
+                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.php">
                         <h3 class="mb-0 font-bold">curae<span class="badge badge-info float-right"></span></h3>
                     </a>
-                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.html">
+                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.php">
                         <h3 class="mb-0 font-bold">curae<span class="badge badge-info float-right"></span></h3>
                     </a>
                 </div>
@@ -183,15 +183,15 @@ $clientTitle = ClientDisplayService::displayClient($client);
                         class="float-right">
                 </h4>
                 <div class="w-full">
-                    <a class="block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl" href="task.html">
+                    <a class="block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl" href="task.php">
                         <h3 class="mb-0 text-red-800 font-bold">mattis
                             <span class="bg-teal-400 px-2 rounded text-white font-bold float-right">3</span>
                         </h3>
                     </a>
-                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.html">
+                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.php">
                         <h3 class="mb-0 font-bold">curae<span class="badge badge-info float-right"></span></h3>
                     </a>
-                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.html">
+                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.php">
                         <h3 class="mb-0 font-bold">curae<span class="badge badge-info float-right"></span></h3>
                     </a>
                 </div>
@@ -206,15 +206,15 @@ $clientTitle = ClientDisplayService::displayClient($client);
                         class="float-right">
                 </h4>
                 <div class="w-full">
-                    <a class="block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl" href="task.html">
+                    <a class="block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl" href="task.php">
                         <h3 class="mb-0 text-red-800 font-bold">mattis
                             <span class="bg-teal-400 px-2 rounded text-white font-bold float-right">3</span>
                         </h3>
                     </a>
-                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.html">
+                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.php">
                         <h3 class="mb-0 font-bold">curae<span class="badge badge-info float-right"></span></h3>
                     </a>
-                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.html">
+                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.php">
                         <h3 class="mb-0 font-bold">curae<span class="badge badge-info float-right"></span></h3>
                     </a>
                 </div>

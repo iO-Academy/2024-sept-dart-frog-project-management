@@ -9,4 +9,5 @@ readonly class TaskEntity
     public ?string $description;
     public ?int $estimate;
     public ?string $deadline;
+    public ?string $avatar;
 }
