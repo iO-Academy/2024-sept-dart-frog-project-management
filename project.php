@@ -13,6 +13,7 @@ require_once 'src/Models/TasksModel.php';
 $db = DatabaseService::connect();
 
 $projectsModel = new ProjectsModel($db);
+$tasksModel = new TasksModel($db);
 $project = $projectsModel->getProjectById($idLink);
 $projectTitle = ProjectDisplayService::displayProject($project);
 $clientID = $project->client_id;
@@ -28,10 +29,24 @@ $OverDeadline = DeadlineDateService::checkDeadlineOverdue('2024-11-22');
 
 $userWithinProject = $projectsModel->getProjectTasksByUser(2);
 
+$tasksByUser = $tasksModel->getTasksbyUserAndProject($idLink, 7);
+$displayTaskUser = $tasksModel->displayTaskUser(7 );
+
 echo '<pre>';
-var_dump($userWithinProject);
+var_dump($tasksByUser);
+
+
 
 ?>
+
+<section class="flex gap-5 flex-nowrap h-[70vh] pb-5 overflow-x-auto">
+    <div class="shrink-0 w-full sm:w-1/2 lg:w-1/4 h-100">
+        <div class="overflow-y-auto border rounded p-3 pb-0 h-full">
+            <h4 class="border-b pb-2 mb-3 text-2xl font-bold">
+                <a href="user.html">Lamond Teather</a>
+                <img
+                        src="https://robohash.org/explicaboautodit.png?size=50x50&set=set1" alt="Project Avatar"
+                        class="float-right">
 
 
 <!DOCTYPE html>

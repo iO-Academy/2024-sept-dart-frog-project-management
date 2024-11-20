@@ -22,13 +22,13 @@ class TasksModel
         $query->execute(['id' => $taskId]);
         return $query->fetch();
     }
-    public function displayTaskUser(int $id): TaskEntity
+    public function displayTaskUser(int $id)
     {
         $query = $this->db->prepare("SELECT `users`.`name`,`avatar`, `tasks`.`id`
                                             FROM `users` 
                                             INNER JOIN `tasks` ON `tasks`.`user_id` = `users`.`id`
                                             WHERE `tasks`.`id` = :id;");
-        $query->setFetchMode(PDO::FETCH_CLASS, TaskEntity::class);
+//        $query->setFetchMode(PDO::FETCH_CLASS, TaskEntity::class);
         $query->execute([':id' => $id]);
         return $query->fetch();
     }
@@ -37,6 +37,19 @@ class TasksModel
     {
         $query = $this->db->prepare('SELECT * FROM `tasks` WHERE `project_id` = :projectId;');
         $query->execute(['projectId' => $projectId]);
+        return $query->fetchAll();
+    }
+
+    /**
+     * @return TaskEntity[]
+     */
+    public function getTasksbyUserAndProject(int $projectId, int $userId): array
+    {
+        $query = $this->db->prepare("SELECT * FROM `tasks` 
+        WHERE `tasks`.`project_id` = :projectId
+        AND `tasks`.`user_id` = :userId;");
+        $query->fetchAll(PDO::FETCH_CLASS, TaskEntity::class);
+        $query->execute(['projectId' => $projectId, 'userId' => $userId]);
         return $query->fetchAll();
     }
 }
