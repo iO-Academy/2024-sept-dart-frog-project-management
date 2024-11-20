@@ -32,4 +32,11 @@ class TasksModel
         $query->execute([':id' => $id]);
         return $query->fetch();
     }
+
+    public function getTasksByProjectID(int $projectId)
+    {
+        $query = $this->db->prepare('SELECT * FROM `tasks` WHERE `project_id` = :projectId;');
+        $query->execute(['projectId' => $projectId]);
+        return $query->fetchAll();
+    }
 }

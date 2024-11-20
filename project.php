@@ -8,14 +8,9 @@ require_once 'src/Services/ClientDisplayService.php';
 require_once 'src/Models/ClientsModel.php';
 require_once 'src/Services/ProjectLinkService.php';
 require_once 'src/Services/DeadlineDateService.php';
+require_once 'src/Models/TasksModel.php';
 
 $db = DatabaseService::connect();
-
-//    private PDO $db;
-//    public function __construct(PDO $db)
-//    {
-//        $this->db = $db;
-//    }
 
 $projectsModel = new ProjectsModel($db);
 $project = $projectsModel->getProjectById($idLink);
