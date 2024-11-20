@@ -17,7 +17,10 @@ class TasksModel
     }
     public function selectTaskById(int $taskId): TaskEntity
     {
-        $query = $this->db->prepare('SELECT * FROM `tasks` WHERE `id` = :id;');
+        $query=$this->db->prepare('SELECT `id`,`project_id`,`user_id`,
+                                        CONCAT(UPPER(SUBSTRING(name,1,1)), LOWER(SUBSTRING(name,2)))
+                                        AS name,`description`,`estimate`,`deadline`
+                                        FROM `tasks` WHERE `id` = :id;');
         $query->setFetchMode(PDO::FETCH_CLASS, TaskEntity::class);
         $query->execute(['id' => $taskId]);
         return $query->fetch();
@@ -32,4 +35,5 @@ class TasksModel
         $query->execute([':id' => $id]);
         return $query->fetch();
     }
+
 }
