@@ -21,32 +21,28 @@ require_once 'src/Services/DatabaseService.php';
 require_once 'src/Models/TasksModel.php';
 require_once 'src/Entities/TaskEntity.php';
 require_once 'src/Services/DeadlineDateService.php';
+require_once 'src/Services/TaskLinkService.php';
 
 $db = DatabaseService::connect();
 $tasksModel = new TasksModel($db);
-$taskId = 22;
 
+$taskId = $taskIdLink;
 $displayTask = $tasksModel->selectTaskById($taskId);
+
 $displayTaskName = $displayTask->name;
 $displayTaskDescription = $displayTask->description;
 $displayTaskEstimate = $displayTask->estimate;
 $displayTaskDeadline = $displayTask->deadline;
-
-
-
-$dateNewFormat = DeadlineDateService::reformatDateUK($displayTaskDeadline);
-
 $displayTaskUser = $tasksModel->displayTaskUser($taskId);
 $displayTaskUserName = $displayTaskUser->name;
 $displayTaskUserAvatar = $displayTaskUser->avatar;
 
+$dateNewFormat = DeadlineDateService::reformatDateUK($displayTaskDeadline);
 
 ?>
 
     <div class="flex justify-between mb-3">
-        <h2 class="text-4xl font-bold mb-2"><?php echo $displayTaskName . ' - ' . $dateNewFormat ?>
-
-
+        <h2 class="text-4xl font-bold mb-2"><?php echo $displayTaskName?>
             <a href="project.php" class="text-base text-blue-600 hover:underline ms-3">Return to project</a>
         </h2>
         <div class="flex items-center gap-3">
@@ -67,7 +63,6 @@ $displayTaskUserAvatar = $displayTaskUser->avatar;
                 echo "<p class=\"text-black\">$dateNewFormat</p>";
             }
             ?>
-
         </div>
         <div class="w-full my-3">
             <h5 class="text-lg font-bold">Task Description:</h5>
