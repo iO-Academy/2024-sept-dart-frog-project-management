@@ -7,6 +7,7 @@ require_once 'src/Models/ProjectsModel.php';
 require_once 'src/Services/ClientDisplayService.php';
 require_once 'src/Models/ClientsModel.php';
 require_once 'src/Services/ProjectLinkService.php';
+require_once 'src/Services/DeadlineDateService.php';
 
 $db = DatabaseService::connect();
 
@@ -27,6 +28,8 @@ $client = $ClientsModel->getClientById($clientID);
 $clientLogo = $client->logo;
 
 $clientTitle = ClientDisplayService::displayClient($client);
+
+$OverDeadline = DeadlineDateService::checkDeadlineOverdue('2024-11-22');
 
 ?>
 

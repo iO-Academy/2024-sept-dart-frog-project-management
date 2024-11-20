@@ -20,6 +20,7 @@ require_once 'src/Models/ClientsModel.php';
 require_once 'src/Models/TasksModel.php';
 require_once 'src/Services/ProjectDisplayServices.php';
 require_once 'src/Services/ProjectLinkService.php';
+require_once 'src/Services/DeadlineDateService.php';
 
 $db = DatabaseService::connect();
 $projectsModel = new ProjectsModel($db);
@@ -35,15 +36,18 @@ echo "<h2 class='text-4xl font-bold mb-2'>Projects</h2>";
                 $linkProject = "project.php?project={$projectID}";
 
                 $deadlineDate = $project['deadline'];
-                if($deadlineDate) {
-                    $deadline = strtotime($deadlineDate);
-                    $today = date('Y-m-d H:i:s');
-                    $todayDate = strtotime($today);
-                    if  ($deadline < $todayDate) {
+
+                $overDeadline = DeadlineDateService::checkDeadlineOverdue($deadlineDate);
+
+                if($overDeadline) {
+//                    $deadline = strtotime($deadlineDate);
+//                    $today = date('Y-m-d H:i:s');
+//                    $todayDate = strtotime($today);
+//                    if  ($deadline < $todayDate) {
                         echo "<a href='{$linkProject}' class='hover:underline rounded-lg border border-red-600 p-4 py-6 text-4xl font-bold w-full bg-red-300'>{$project['name']}</a>";
-                    } else {
-                        echo "<a href='{$linkProject}' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full bg-slate-300'>{$project['name']}</a>";
-                    }
+//                    } else {
+//                        echo "<a href='{$linkProject}' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full bg-slate-300'>{$project['name']}</a>";
+//                    }
                 } else {
                     echo "<a href='{$linkProject}' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full bg-slate-300'>{$project['name']}</a>";
                 }
