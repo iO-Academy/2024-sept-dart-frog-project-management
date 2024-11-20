@@ -8,23 +8,20 @@ class DeadlineDateServiceTest extends \PHPUnit\Framework\TestCase
     {
         $deadlineDate = NULL;
         $actual = DeadlineDateService::checkDeadlineOverdue($deadlineDate);
-        $expected = false;
-        $this->assertEquals($expected, $actual);
+        $this->assertFalse($actual);
     }
 
     public function testOverdueTrue()
     {
         $deadlineDate = '2023-04-08';
         $actual = DeadlineDateService::checkDeadlineOverdue($deadlineDate);
-        $expected = true;
-        $this->assertEquals($expected, $actual);
+        $this->assertTrue($actual);
     }
 
     public function testOverdueFalse()
     {
         $deadlineDate = '2025-10-17';
         $actual = DeadlineDateService::checkDeadlineOverdue($deadlineDate);
-        $expected = false;
-        $this->assertEquals($expected, $actual);
+        $this->assertFalse($actual);
     }
 }

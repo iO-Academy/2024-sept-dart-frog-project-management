@@ -2,7 +2,7 @@
 
 class DeadlineDateService
 {
-    public static function checkDeadlineOverdue(?string $deadlineDate)
+    public static function checkDeadlineOverdue(?string $deadlineDate): bool
     {
         if ($deadlineDate == NULL) {
             return false;
