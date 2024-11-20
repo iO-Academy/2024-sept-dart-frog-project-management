@@ -25,4 +25,18 @@ class ProjectsModel {
         $query->execute();
         return $query->fetchAll();
     }
+
+    public function getProjectTasksByUser(int $projectID): array
+    {
+        $query = $this->db->prepare("SELECT
+`users`.`name` as 'username', `tasks`.`name` as 'taskName', `tasks`.`id` as 'taskID', `tasks`.`estimate`, `tasks`.`user_id`, `project_users`.`project_id`
+FROM `tasks`
+JOIN `users`
+ON `tasks`.`user_id`=`users`.`id`
+JOIN `project_users`
+ON `users`.`id`=`project_users`.`user_id` 
+WHERE `project_users`.`project_id` = :projectID;");
+        $query->execute([':projectID' => $projectID]);
+        return $query->fetch();
+    }
 }

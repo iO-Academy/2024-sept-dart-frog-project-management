@@ -26,6 +26,11 @@ $clientTitle = ClientDisplayService::displayClient($client);
 
 $OverDeadline = DeadlineDateService::checkDeadlineOverdue('2024-11-22');
 
+$userWithinProject = $projectsModel->getProjectTasksByUser(2);
+
+echo '<pre>';
+var_dump($userWithinProject);
+
 ?>
 
 
