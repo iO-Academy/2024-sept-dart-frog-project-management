@@ -23,16 +23,26 @@ require_once 'src/Entities/TaskEntity.php';
 
 $db = DatabaseService::connect();
 $tasksModel = new TasksModel($db);
-$taskId = 3;
+$taskId = 2;
 
 $displayTask = $tasksModel->selectTaskById($taskId);
 $displayTaskName = $displayTask->name;
 $displayTaskDescription = $displayTask->description;
 $displayTaskEstimate = $displayTask->estimate;
-
 $displayTaskDeadline = $displayTask->deadline;
-$date = new DateTimeImmutable($displayTaskDeadline);
-$dateNewFormat = $date->format('d/m/y');
+
+function checkDateValid($dateinput){
+    if($dateinput != null)
+    {
+        $date = new DateTimeImmutable($dateinput);
+        $dateNewFormat = $date->format('d/m/y');
+        return $dateNewFormat;
+    } else {
+        return 'N/A';
+    }
+}
+
+$dateNewFormat = checkDateValid($displayTaskDeadline);
 
 $displayTaskUser = $tasksModel->displayTaskUser($taskId);
 $displayTaskUserName = $displayTaskUser->name;
