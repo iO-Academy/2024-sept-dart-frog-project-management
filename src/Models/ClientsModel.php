@@ -10,7 +10,10 @@ class ClientsModel {
         $this->db = $db;
     }
 
-    public function getAllClients()
+    /**
+     * @return ClientEntity[]
+     */
+    public function getAllClients(): array
     {
         $query = $this->db->prepare('SELECT * FROM `clients`;');
         $query->execute();

@@ -17,8 +17,11 @@ class ProjectsModel {
         $query->execute(['id' => $id]);
         return $query->fetch();
     }
-    
-    public function getAllProjects()
+
+    /**
+     * @return ProjectEntity[]
+     */
+    public function getAllProjects(): array
     {
         $query = $this->db->prepare('SELECT * FROM `projects`;');
         $query->fetchAll(PDO::FETCH_CLASS, ProjectEntity::class);
