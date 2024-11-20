@@ -20,10 +20,11 @@
 require_once 'src/Services/DatabaseService.php';
 require_once 'src/Models/TasksModel.php';
 require_once 'src/Entities/TaskEntity.php';
+require_once 'src/Services/DeadlineDateService.php';
 
 $db = DatabaseService::connect();
 $tasksModel = new TasksModel($db);
-$taskId = 3;
+$taskId = 22;
 
 $displayTask = $tasksModel->selectTaskById($taskId);
 $displayTaskName = $displayTask->name;
@@ -31,35 +32,19 @@ $displayTaskDescription = $displayTask->description;
 $displayTaskEstimate = $displayTask->estimate;
 $displayTaskDeadline = $displayTask->deadline;
 
-function checkDateValid($dateinput){
-    if($dateinput != null)
-    {
-        $date = new DateTimeImmutable($dateinput);
-        $dateNewFormat = $date->format('d/m/y');
-        return $dateNewFormat;
-    } else {
-        return 'N/A';
-    }
-}
 
-$dateNewFormat = checkDateValid($displayTaskDeadline);
 
-function isOverdue($date){
-    $today = date('Y-m-d');
-    if ($today > $date) {
-    return true;
-} else return false;
-}
-
+$dateNewFormat = DeadlineDateService::reformatDateUK($displayTaskDeadline);
 
 $displayTaskUser = $tasksModel->displayTaskUser($taskId);
 $displayTaskUserName = $displayTaskUser->name;
 $displayTaskUserAvatar = $displayTaskUser->avatar;
 
+
 ?>
 
     <div class="flex justify-between mb-3">
-        <h2 class="text-4xl font-bold mb-2"><?php echo $displayTaskName . ' - ' . ?>
+        <h2 class="text-4xl font-bold mb-2"><?php echo $displayTaskName . ' - ' . $dateNewFormat ?>
 
 
             <a href="project.php" class="text-base text-blue-600 hover:underline ms-3">Return to project</a>
@@ -76,7 +61,7 @@ $displayTaskUserAvatar = $displayTaskUser->avatar;
         </div>
         <div class="w-1/2">
             <h5 class="text-lg font-bold">Task Deadline:</h5>
-            <?php  if (isOverdue($displayTaskDeadline)){
+            <?php  if (DeadlineDateService::checkDeadlineOverdue($displayTaskDeadline)){
                 echo "<p class=\"text-red-500\">$dateNewFormat</p>";
             } else {
                 echo "<p class=\"text-black\">$dateNewFormat</p>";
