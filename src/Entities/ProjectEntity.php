@@ -1,6 +1,6 @@
 <?php
 
-readonly class ProjectEntity
+class ProjectEntity
 {
     public int $id;
     public string $name;
