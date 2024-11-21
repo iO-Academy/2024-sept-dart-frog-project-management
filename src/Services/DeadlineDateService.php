@@ -13,8 +13,9 @@ class DeadlineDateService
         if ($deadline < $todayDate) {
             return true;
         }
-            return false;
+        return false;
     }
+
     public static function reformatDateUK($dateinput){
         if($dateinput != null)
         {
@@ -25,7 +26,7 @@ class DeadlineDateService
             return 'N/A';
         }
     }
-
 }
+
 
 

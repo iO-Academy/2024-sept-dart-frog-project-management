@@ -19,6 +19,7 @@
 require_once 'src/Services/DatabaseService.php';
 require_once 'src/Models/TasksModel.php';
 require_once 'src/Entities/TaskEntity.php';
+require_once 'src/Services/DeadlineDateService.php';
 require_once 'src/Services/TaskLinkService.php';
 
 $db = DatabaseService::connect();
@@ -28,14 +29,11 @@ $displayTask = $tasksModel->selectTaskById($taskIdLink);
 $displayTaskName = $displayTask->name;
 $displayTaskDescription = $displayTask->description;
 $displayTaskEstimate = $displayTask->estimate;
-
 $displayTaskDeadline = $displayTask->deadline;
-$date = new DateTimeImmutable($displayTaskDeadline);
-$dateNewFormat = $date->format('d/m/y');
-
 $displayTaskUser = $tasksModel->displayTaskUser($taskIdLink);
 $displayTaskUserName = $displayTaskUser->name;
 $displayTaskUserAvatar = $displayTaskUser->avatar;
+$dateNewFormat = DeadlineDateService::reformatDateUK($displayTaskDeadline);
 
 ?>
 
@@ -55,7 +53,12 @@ $displayTaskUserAvatar = $displayTaskUser->avatar;
         </div>
         <div class="w-1/2">
             <h5 class="text-lg font-bold">Task Deadline:</h5>
-            <p class="text-red-500"><?php echo $dateNewFormat?></p>
+            <?php  if (DeadlineDateService::checkDeadlineOverdue($displayTaskDeadline)){
+                echo "<p class=\"text-red-500\">$dateNewFormat</p>";
+            } else {
+                echo "<p class=\"text-black\">$dateNewFormat</p>";
+            }
+            ?>
         </div>
         <div class="w-full my-3">
             <h5 class="text-lg font-bold">Task Description:</h5>
