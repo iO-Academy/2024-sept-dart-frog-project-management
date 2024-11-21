@@ -35,7 +35,7 @@ $dateNewFormat = DateService::reformatDateUK($displayTask->deadline);
 <header class="p-3 bg-teal-50 flex justify-between">
     <h1 class="sm:text-5xl text-4xl"><a href="index.php">Project Manager</a></h1>
     <div class="pr-3 flex">
-        <a href="task.php" class="p-3 bg-slate-300 rounded-l-lg border-y border-l">🇬🇧</a>
+        <a href=<?php echo "task.php?task=$taskIdLink"?> class="p-3 bg-slate-300 rounded-l-lg border-y border-l">🇬🇧</a>
     </div>
 </header>
 <main class="p-3">
