@@ -19,8 +19,7 @@ require_once 'src/Models/ProjectsModel.php';
 require_once 'src/Models/ClientsModel.php';
 require_once 'src/Models/TasksModel.php';
 require_once 'src/Services/ProjectDisplayServices.php';
-require_once 'src/Services/ProjectLinkService.php';
-require_once 'src/Services/DeadlineDateService.php';
+require_once 'src/Services/DateService.php';
 
 $db = DatabaseService::connect();
 $projectsModel = new ProjectsModel($db);
@@ -37,7 +36,7 @@ echo "<h2 class='text-4xl font-bold mb-2'>Projects</h2>";
 
                 $deadlineDate = $project['deadline'];
 
-                $overDeadline = DeadlineDateService::checkDeadlineOverdue($deadlineDate);
+                $overDeadline = DateService::checkDeadlineOverdue($deadlineDate);
 
                 if($overDeadline) {
 

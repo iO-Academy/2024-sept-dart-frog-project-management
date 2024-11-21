@@ -19,11 +19,18 @@
 require_once 'src/Services/DatabaseService.php';
 require_once 'src/Models/TasksModel.php';
 require_once 'src/Entities/TaskEntity.php';
-require_once 'src/Services/DeadlineDateService.php';
-require_once 'src/Services/TaskLinkService.php';
+require_once 'src/Services/DateService.php';
 
 $db = DatabaseService::connect();
 $tasksModel = new TasksModel($db);
+
+if (isset($_GET['task']))
+{
+    $taskIdLink = $_GET['task'];
+} else
+{
+    $taskIdLink = 1;
+}
 
 $displayTask = $tasksModel->selectTaskById($taskIdLink);
 $displayTaskName = $displayTask->name;
@@ -33,7 +40,7 @@ $displayTaskDeadline = $displayTask->deadline;
 $displayTaskUser = $tasksModel->displayTaskUser($taskIdLink);
 $displayTaskUserName = $displayTaskUser->name;
 $displayTaskUserAvatar = $displayTaskUser->avatar;
-$dateNewFormat = DeadlineDateService::reformatDateUK($displayTaskDeadline);
+$dateNewFormat = DateService::reformatDateUK($displayTaskDeadline);
 
 ?>
 
@@ -53,7 +60,7 @@ $dateNewFormat = DeadlineDateService::reformatDateUK($displayTaskDeadline);
         </div>
         <div class="w-1/2">
             <h5 class="text-lg font-bold">Task Deadline:</h5>
-            <?php  if (DeadlineDateService::checkDeadlineOverdue($displayTaskDeadline)){
+            <?php  if (DateService::checkDeadlineOverdue($displayTaskDeadline)){
                 echo "<p class=\"text-red-500\">$dateNewFormat</p>";
             } else {
                 echo "<p class=\"text-black\">$dateNewFormat</p>";

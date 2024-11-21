@@ -21,23 +21,22 @@
         require_once 'src/Models/ProjectsModel.php';
         require_once 'src/Services/ClientDisplayService.php';
         require_once 'src/Models/ClientsModel.php';
-        require_once 'src/Services/ProjectLinkService.php';
-        require_once 'src/Services/DeadlineDateService.php';
+        require_once 'src/Services/DateService.php';
         require_once 'src/Models/TasksModel.php';
-        require_once 'src/Services/TaskLinkService.php';
 
         $db = DatabaseService::connect();
 
         $projectsModel = new ProjectsModel($db);
         $tasksModel = new TasksModel($db);
-        $ClientsModel = new ClientsModel($db);
+        $clientsModel = new ClientsModel($db);
 
+        $idLink = $_GET['project'] ?? 1;
         $project = $projectsModel->getProjectById($idLink);
         $projectTitle = ProjectDisplayService::displayProject($project);
-        $clientID = $project->client_id;
-        $projectDeadline = DeadlineDateService::reformatDateUK($project->deadline);
+        $projectDeadline = DateService::reformatDateUK($project->deadline);
 
-        $client = $ClientsModel->getClientById($clientID);
+        $clientID = $project->client_id;
+        $client = $clientsModel->getClientById($clientID);
         $clientLogo = $client->logo;
         $clientTitle = ClientDisplayService::displayClient($client);
 
@@ -73,7 +72,7 @@
             $displayTasksByUser = $tasksModel->getTasksByUserAndProject($idLink, $userID);
                 foreach ($displayTasksByUser as $task) {
                     $deadlineDate = $task['task_deadline'];
-                    $overDeadline = DeadlineDateService::checkDeadlineOverdue($deadlineDate);
+                    $overDeadline = DateService::checkDeadlineOverdue($deadlineDate);
 
                     $displayTaskName = $task['task_name'];
                     $displayTaskEstimate = $task['estimate'];

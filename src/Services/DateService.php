@@ -1,8 +1,8 @@
 <?php
 
-class DeadlineDateService
+class DateService
 {
-    public static function checkDeadlineOverdue(?string $deadlineDate)
+    public static function checkDeadlineOverdue(?string $deadlineDate): bool
     {
         if ($deadlineDate == NULL) {
             return false;
@@ -16,15 +16,15 @@ class DeadlineDateService
         return false;
     }
 
-    public static function reformatDateUK($dateinput){
-        if($dateinput != null)
+    public static function reformatDateUK(?string $dateinput): string
+    {
+        if($dateinput == null)
         {
-            $date = new DateTimeImmutable($dateinput);
-            $dateNewFormat = $date->format('d/m/y');
-            return $dateNewFormat;
-        } else {
             return 'N/A';
         }
+        $date = new DateTimeImmutable($dateinput);
+        $dateNewFormat = $date->format('d/m/y');
+        return $dateNewFormat;
     }
 }
 
