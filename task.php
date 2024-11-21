@@ -40,8 +40,7 @@ $displayTaskUserAvatar = $displayTaskUser->avatar;
 ?>
 
     <div class="flex justify-between mb-3">
-        <h2 class="text-4xl font-bold mb-2"><?php echo $displayTaskName . ' - ' .
-                $dateNewFormat?>
+        <h2 class="text-4xl font-bold mb-2"><?php echo $displayTaskName?>
             <a href="project.php" class="text-base text-blue-600 hover:underline ms-3">Return to project</a>
         </h2>
         <div class="flex items-center gap-3">

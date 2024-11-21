@@ -15,7 +15,16 @@ class DeadlineDateService
         }
             return false;
     }
-
+    public static function reformatDateUK($dateinput){
+        if($dateinput != null)
+        {
+            $date = new DateTimeImmutable($dateinput);
+            $dateNewFormat = $date->format('d/m/y');
+            return $dateNewFormat;
+        } else {
+            return 'N/A';
+        }
+    }
 
 }
 

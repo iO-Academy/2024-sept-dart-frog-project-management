@@ -35,6 +35,7 @@
         $project = $projectsModel->getProjectById($idLink);
         $projectTitle = ProjectDisplayService::displayProject($project);
         $clientID = $project->client_id;
+        $projectDeadline = DeadlineDateService::reformatDateUK($project->deadline);
 
         $client = $ClientsModel->getClientById($clientID);
         $clientLogo = $client->logo;
@@ -44,7 +45,7 @@
 
         echo "
             <div class=\"flex justify-between mb-3\">
-                <h2 class=\"text-4xl font-bold mb-2\">$projectTitle
+                <h2 class=\"text-4xl font-bold mb-2\">$projectTitle$projectDeadline
                     <a href=\"index.php\" class=\"text-base text-blue-600 hover:underline ms-3\">Return to all projects</a>
                 </h2>
                 <div class=\"flex items-center gap-3\">
@@ -52,13 +53,14 @@
                     <img class=\"w-[50px]\" src=$clientLogo alt=\"client logo\" />
                 </div>
             </div>
-        ";
+            ";
+        echo "<section class=\"flex gap-5 flex-nowrap h-[70vh] pb-5 overflow-x-auto\">";
         foreach($displayUserNameByProjectId as $taskAndUser){
             $displayUserName = $taskAndUser['username'];
             $displayUserAvatar = $taskAndUser['avatar'];
             $userID = $taskAndUser['userID'];
             echo "
-                <section class=\"flex gap-5 flex-nowrap h-[70vh] pb-5 overflow-x-auto\">
+                
                     <div class=\"shrink-0 w-full sm:w-1/2 lg:w-1/4 h-100\">
                         <div class=\"overflow-y-auto border rounded p-3 pb-0 h-full\">
                         <h4 class=\"border-b pb-2 mb-3 text-2xl font-bold\">
@@ -89,19 +91,21 @@
                            </div>";
                     } else {
                         echo "<div class=\"w-full\">
-                                  <a class=\"block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl\" href=\"task.php\">
+                                  <a class=\"block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl\" href=\"$linkTask\">
                                     <h3 class=\"mb-0 font-bold\">$displayTaskName
                                         <span class=\"bg-teal-400 px-2 rounded text-white font-bold float-right\">$displayTaskEstimate</span>
                                     </h3>
-                                  </a>";
+                                  </a>
+                                  </div>";
                     }
                 }
                     echo "
                         </div>
                     </div>
-                </section>
+                
                 ";
         }
+        echo "</section>";
 
         ?>
 
