@@ -11,6 +11,8 @@ require_once 'src/Models/UsersModel.php';
 
 $db = DatabaseService::connect();
 
+$pageLocale = $_GET['location'] ?? 'uk';
+
 $projectsModel = new ProjectsModel($db);
 $tasksModel = new TasksModel($db);
 $clientsModel = new ClientsModel($db);
@@ -24,6 +26,13 @@ $projectDeadline = DateService::reformatDateUK($project->deadline);
 $client = $clientsModel->getClientById($project->client_id);
 $clientTitle = ClientDisplayService::displayClient($client);
 $displayUserNameByProjectId = $usersModel->getUsersByProjectId($idLink);
+
+//$estimate_us = EstimateService::convertEstimate($displayTask->estimate);
+//$estimate = $displayTask->estimate;
+//
+//if ($pageLocale == 'us') {
+//    $estimate = $estimate_us;
+//}
 ?>
 
 <!DOCTYPE html>
@@ -37,8 +46,15 @@ $displayUserNameByProjectId = $usersModel->getUsersByProjectId($idLink);
 <header class="p-3 bg-teal-50 flex justify-between">
     <h1 class="sm:text-5xl text-4xl"><a href="index.php">Project Manager</a></h1>
     <div class="pr-3 flex">
-        <a href=<?php echo "project.php?project=$idLink"?> class="p-3 bg-slate-300 rounded-l-lg border-y border-l">🇬🇧</a>
-        <a href=<?php echo "project_us.php?project=$idLink"?> class="p-3 rounded-r-lg border-y border-r">🇺🇸</a>
+        <?php
+        if ($pageLocale == 'uk') {
+            echo "<a href = 'project.php?project=$idLink&location=uk' class='p-3 bg-slate-300 rounded-l-lg border-y border-l' > 🇬🇧</a >";
+            echo "<a href = 'project.php?project=$idLink&location=us' class='p-3 rounded-r-lg border-y border-r' > 🇺🇸</a >";
+        } else {
+            echo "<a href = 'project.php?project=$idLink&location=uk' class='p-3  rounded-l-lg border-y border-l' > 🇬🇧</a >";
+            echo "<a href = 'project.php?project=$idLink&location=us' class='p-3 bg-slate-300 rounded-r-lg border-y border-r' > 🇺🇸</a >";
+        }
+        ?>
     </div>
 </header>
 <main class="p-3">
