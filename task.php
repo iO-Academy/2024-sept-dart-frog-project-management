@@ -10,7 +10,6 @@
     <h1 class="sm:text-5xl text-4xl"><a href="index.php">Project Manager</a></h1>
     <div class="pr-3 flex">
         <a href="task.php" class="p-3 bg-slate-300 rounded-l-lg border-y border-l">🇬🇧</a>
-<!--        <a href="task-us.php" class="p-3 rounded-r-lg border-y border-r">🇺🇸</a>-->
     </div>
 </header>
 <main class="p-3">
@@ -26,17 +25,14 @@ require_once 'src/Services/TaskLinkService.php';
 $db = DatabaseService::connect();
 $tasksModel = new TasksModel($db);
 
-$taskId = $taskIdLink;
-$displayTask = $tasksModel->selectTaskById($taskId);
-
+$displayTask = $tasksModel->selectTaskById($taskIdLink);
 $displayTaskName = $displayTask->name;
 $displayTaskDescription = $displayTask->description;
 $displayTaskEstimate = $displayTask->estimate;
 $displayTaskDeadline = $displayTask->deadline;
-$displayTaskUser = $tasksModel->displayTaskUser($taskId);
+$displayTaskUser = $tasksModel->displayTaskUser($taskIdLink);
 $displayTaskUserName = $displayTaskUser->name;
 $displayTaskUserAvatar = $displayTaskUser->avatar;
-
 $dateNewFormat = DeadlineDateService::reformatDateUK($displayTaskDeadline);
 
 ?>
@@ -70,7 +66,7 @@ $dateNewFormat = DeadlineDateService::reformatDateUK($displayTaskDeadline);
         </div>
     </section>
 </main>
-<div style="right: 0px; top: 150px; height: 300px;" class="fixed">→</div>
+
 <footer class="border-t border-slate-300 mt-3 mx-3 p-3 pt-5">
     <p>&copy; Copyright iO Academy 2024</p>
 </footer>
