@@ -9,7 +9,10 @@ class ClientsModel {
         $this->db = $db;
     }
 
-    public function getAllClients()
+    /**
+     * @return ClientEntity[]
+     */
+    public function getAllClients(): array
     {
         $query = $this->db->prepare('SELECT `id`, `name`, `logo` FROM `clients`;');
         $query->fetchAll(PDO::FETCH_CLASS, ClientEntity::class);
