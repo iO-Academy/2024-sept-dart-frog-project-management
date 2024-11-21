@@ -8,6 +8,7 @@ require_once 'src/Models/ClientsModel.php';
 require_once 'src/Services/DateService.php';
 require_once 'src/Models/TasksModel.php';
 require_once 'src/Models/UsersModel.php';
+require_once 'src/Services/EstimateService.php';
 
 $db = DatabaseService::connect();
 
@@ -27,12 +28,6 @@ $client = $clientsModel->getClientById($project->client_id);
 $clientTitle = ClientDisplayService::displayClient($client);
 $displayUserNameByProjectId = $usersModel->getUsersByProjectId($idLink);
 
-//$estimate_us = EstimateService::convertEstimate($displayTask->estimate);
-//$estimate = $displayTask->estimate;
-//
-//if ($pageLocale == 'us') {
-//    $estimate = $estimate_us;
-//}
 ?>
 
 <!DOCTYPE html>
@@ -91,9 +86,16 @@ $displayUserNameByProjectId = $usersModel->getUsersByProjectId($idLink);
 
                     $displayTaskName = $task['task_name'];
                     $displayTaskEstimate = $task['estimate'];
+                    $estimate_us = EstimateService::convertEstimate($displayTaskEstimate);
+
+                    if ($pageLocale == 'us') {
+                        $displayTaskEstimate = $estimate_us;
+                    }
+
 
                     $taskID = $task['taskID'];
                     $linkTask = "task.php?task={$taskID}";
+
 
                     if($overDeadline) {
                         echo "<div class=\"w-full\">
