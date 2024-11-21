@@ -24,6 +24,7 @@
         require_once 'src/Services/ProjectLinkService.php';
         require_once 'src/Services/DeadlineDateService.php';
         require_once 'src/Models/TasksModel.php';
+        require_once 'src/Services/TaskLinkService.php';
 
         $db = DatabaseService::connect();
 
@@ -75,9 +76,12 @@
                     $displayTaskName = $task['task_name'];
                     $displayTaskEstimate = $task['estimate'];
 
+                    $taskID = $task['taskID'];
+                    $linkTask = "task.php?task={$taskID}";
+
                     if($overDeadline) {
                     echo " <div class=\"w-full\">
-                                <a class=\"block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl\" href=\"task.php\">
+                                <a class=\"block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl\" href=\"$linkTask\">
                                     <h3 class=\"mb-0 text-red-800 font-bold\">$displayTaskName
                                         <span class=\"bg-teal-400 px-2 rounded text-white font-bold float-right\">$displayTaskEstimate</span>
                                     </h3>

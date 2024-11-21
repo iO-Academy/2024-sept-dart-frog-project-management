@@ -10,15 +10,12 @@ class TasksModel
     {
         $this->db = $db;
     }
-    public function selectTask()
-    {
-        $query = $this->db->prepare('SELECT * FROM `tasks`;');
-        $query->execute();
-        return $query->fetchAll();
-    }
     public function selectTaskById(int $taskId): TaskEntity
     {
-        $query = $this->db->prepare('SELECT * FROM `tasks` WHERE `id` = :id;');
+        $query=$this->db->prepare('SELECT `id`,`project_id`,`user_id`,
+                                        CONCAT(UPPER(SUBSTRING(name,1,1)), LOWER(SUBSTRING(name,2)))
+                                        AS name,`description`,`estimate`,`deadline`
+                                        FROM `tasks` WHERE `id` = :id;');
         $query->setFetchMode(PDO::FETCH_CLASS, TaskEntity::class);
         $query->execute(['id' => $taskId]);
         return $query->fetch();
@@ -39,7 +36,8 @@ class TasksModel
      */
     public function getTasksByUserAndProject(int $projectId, int $userId): array
     {
-        $query = $this->db->prepare("SELECT `id`,`name` as 'task_name',`estimate`,`deadline` as 'task_deadline' FROM `tasks` 
+        $query = $this->db->prepare("SELECT `id` AS 'taskID',`name` AS 'task_name',`estimate`,`deadline` AS 'task_deadline' 
+                                            FROM `tasks` 
                                             WHERE `project_id` = :projectId
                                             AND `user_id` = :userId;");
         $query->fetchAll(PDO::FETCH_CLASS, TaskEntity::class);
@@ -51,7 +49,7 @@ class TasksModel
      */
     public function getUsersByProjectId(int $projectID): array
     {
-        $query = $this->db->prepare("SELECT `users`.`name` as 'username',`avatar`,`users`.`id` as `userID`,`project_users`.`project_id`
+        $query = $this->db->prepare("SELECT `users`.`name` AS 'username',`avatar`,`users`.`id` AS `userID`,`project_users`.`project_id`
                                             FROM `users`
                                             INNER JOIN `project_users`
                                             ON `users`.`id`=`project_users`.`user_id` 
