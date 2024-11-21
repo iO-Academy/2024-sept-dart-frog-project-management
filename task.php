@@ -18,8 +18,6 @@ if (isset($_GET['task']))
 
 $displayTask = $tasksModel->selectTaskById($taskIdLink);
 $displayTaskUser = $tasksModel->selectTaskUser($taskIdLink);
-$displayTaskUserName = $displayTaskUser->name;
-$displayTaskUserAvatar = $displayTaskUser->avatar;
 $dateNewFormat = DateService::reformatDateUK($displayTask->deadline);
 
 ?>
@@ -44,8 +42,8 @@ $dateNewFormat = DateService::reformatDateUK($displayTask->deadline);
             <a href="project.php" class="text-base text-blue-600 hover:underline ms-3">Return to project</a>
         </h2>
         <div class="flex items-center gap-3">
-            <h3 class="text-3xl font-bold"><?php echo $displayTaskUserName?></h3>
-            <img class="w-[50px]" src=<?php echo $displayTaskUserAvatar?> alt="profile pic" />
+            <h3 class="text-3xl font-bold"><?php echo $displayTaskUser->name?></h3>
+            <img class="w-[50px]" src=<?php echo $displayTaskUser->avatar?> alt="profile pic" />
         </div>
     </div>
     <section class="flex flex-wrap p-4">
