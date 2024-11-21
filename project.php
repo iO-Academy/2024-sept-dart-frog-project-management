@@ -8,6 +8,9 @@
 <body class="h-full">
 <header class="p-3 bg-teal-50 flex justify-between">
     <h1 class="sm:text-5xl text-4xl"><a href="index.php">Project Manager</a></h1>
+    <div class="pr-3 flex">
+        <a href="project.php" class="p-3 bg-slate-300 rounded-l-lg border-y border-l">🇬🇧</a>
+    </div>
 </header>
 <main class="p-3">
 
@@ -52,6 +55,7 @@
         foreach($displayUserNameByProjectId as $taskAndUser){
             $displayUserName = $taskAndUser['username'];
             $displayUserAvatar = $taskAndUser['avatar'];
+            $userID = $taskAndUser['userID'];
             echo "
                 <section class=\"flex gap-5 flex-nowrap h-[70vh] pb-5 overflow-x-auto\">
                     <div class=\"shrink-0 w-full sm:w-1/2 lg:w-1/4 h-100\">
@@ -63,7 +67,7 @@
                                 class=\"float-right\">
                         </h4>
                 ";
-            $displayTasksByUser = $tasksModel->getTasksByUserAndProject($idLink, 2);
+            $displayTasksByUser = $tasksModel->getTasksByUserAndProject($idLink, $userID);
                 foreach ($displayTasksByUser as $task) {
                     $deadlineDate = $task['task_deadline'];
                     $overDeadline = DeadlineDateService::checkDeadlineOverdue($deadlineDate);
@@ -104,9 +108,3 @@
 </footer>
 </body>
 </html>
-
-                    <a class="block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl" href="task.php">
-                        <h3 class="mb-0 font-bold">curae
-                            <span class="bg-teal-400 px-2 rounded text-white font-bold float-right">2</span>
-                        </h3>
-                    </a>

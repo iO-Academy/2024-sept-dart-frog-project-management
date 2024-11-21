@@ -34,13 +34,6 @@ class TasksModel
         return $query->fetch();
     }
 
-    public function getTasksByProjectID(int $projectId)
-    {
-        $query = $this->db->prepare('SELECT * FROM `tasks` WHERE `project_id` = :projectId;');
-        $query->execute(['projectId' => $projectId]);
-        return $query->fetchAll();
-    }
-
     /**
      * @return TaskEntity[]
      */
@@ -58,7 +51,7 @@ class TasksModel
      */
     public function getUsersByProjectId(int $projectID): array
     {
-        $query = $this->db->prepare("SELECT `users`.`name` as 'username',`avatar`, `project_users`.`project_id`
+        $query = $this->db->prepare("SELECT `users`.`name` as 'username',`avatar`,`users`.`id` as `userID`,`project_users`.`project_id`
                                             FROM `users`
                                             INNER JOIN `project_users`
                                             ON `users`.`id`=`project_users`.`user_id` 
