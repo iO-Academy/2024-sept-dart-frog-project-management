@@ -23,6 +23,10 @@ $idLink = $_GET['project'] ?? 1;
 $project = $projectsModel->getProjectById($idLink);
 $projectTitle = ProjectDisplayService::displayProject($project);
 $projectDeadline = DateService::reformatDateUK($project->deadline);
+$projectDeadlineUS = DateService::reformatDateUS($project->deadline);
+if ($pageLocale == 'us') {
+    $projectDeadline = $projectDeadlineUS;
+}
 
 $client = $clientsModel->getClientById($project->client_id);
 $clientTitle = ClientDisplayService::displayClient($client);
@@ -53,18 +57,16 @@ $displayUserNameByProjectId = $usersModel->getUsersByProjectId($idLink);
     </div>
 </header>
 <main class="p-3">
-
-
-            <div class="flex justify-between mb-3">
-                <h2 class="text-4xl font-bold mb-2"><?php echo $projectTitle.$projectDeadline ?>
-                    <a href="index.php" class="text-base text-blue-600 hover:underline ms-3">Return to all projects</a>
-                </h2>
-                <div class="flex items-center gap-3">
-                    <h3 class="text-3xl font-bold"><?php echo $clientTitle ?></h3>
-                    <img class="w-[50px]" src=<?php echo $client->logo ?> alt="client logo" />
-                </div>
-            </div>
-        <section class="flex gap-5 flex-nowrap h-[70vh] pb-5 overflow-x-auto">
+    <div class="flex justify-between mb-3">
+        <h2 class="text-4xl font-bold mb-2"><?php echo $projectTitle.$projectDeadline ?>
+            <a href="index.php" class="text-base text-blue-600 hover:underline ms-3">Return to all projects</a>
+        </h2>
+        <div class="flex items-center gap-3">
+            <h3 class="text-3xl font-bold"><?php echo $clientTitle ?></h3>
+            <img class="w-[50px]" src=<?php echo $client->logo ?> alt="client logo" />
+        </div>
+    </div>
+    <section class="flex gap-5 flex-nowrap h-[70vh] pb-5 overflow-x-auto">
     <?php
         foreach($displayUserNameByProjectId as $taskAndUser){
             $displayUserName = $taskAndUser['username'];
@@ -91,12 +93,8 @@ $displayUserNameByProjectId = $usersModel->getUsersByProjectId($idLink);
                     if ($pageLocale == 'us') {
                         $displayTaskEstimate = $estimate_us;
                     }
-
-
                     $taskID = $task['taskID'];
                     $linkTask = "task.php?task={$taskID}";
-
-
                     if($overDeadline) {
                         echo "<div class=\"w-full\">
                                 <a class=\"block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl\" href=\"$linkTask\">
@@ -112,7 +110,7 @@ $displayUserNameByProjectId = $usersModel->getUsersByProjectId($idLink);
                                         <span class=\"bg-teal-400 px-2 rounded text-white font-bold float-right\">$displayTaskEstimate</span>
                                     </h3>
                                   </a>
-                                  </div>";
+                               </div>";
                     }
                 }
                     echo "
@@ -120,7 +118,7 @@ $displayUserNameByProjectId = $usersModel->getUsersByProjectId($idLink);
                     </div>
                 ";
         }
-        ?>
+    ?>
     </section>
 </main>
 <footer class="border-t border-slate-300 mt-3 mx-3 p-3 pt-5">

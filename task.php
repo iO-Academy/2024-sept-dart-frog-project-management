@@ -1,5 +1,4 @@
 <?php
-
 require_once 'src/Services/DatabaseService.php';
 require_once 'src/Models/TasksModel.php';
 require_once 'src/Entities/TaskEntity.php';
@@ -7,16 +6,10 @@ require_once 'src/Services/DateService.php';
 require_once 'src/Services/EstimateService.php';
 
 $db = DatabaseService::connect();
+
 $tasksModel = new TasksModel($db);
 
-if (isset($_GET['task']))
-{
-    $taskIdLink = $_GET['task'];
-} else
-{
-    $taskIdLink = 1;
-}
-
+$taskIdLink = $_GET['task'] ?? 1;
 $pageLocale = $_GET['location'] ?? 'uk';
 
 $displayTask = $tasksModel->selectTaskById($taskIdLink);
@@ -24,15 +17,14 @@ $displayTaskUser = $tasksModel->selectTaskUser($taskIdLink);
 $displayTaskUserName = $displayTaskUser->name;
 $displayTaskUserAvatar = $displayTaskUser->avatar;
 $dateNewFormat = DateService::reformatDateUK($displayTask->deadline);
-$estimate_us = EstimateService::convertEstimate($displayTask->estimate);
+$dateNewFormatUS = DateService::reformatDateUS($displayTask->deadline);
 $estimate = $displayTask->estimate;
+$estimate_us = EstimateService::convertEstimate($estimate);
 
-if ($pageLocale == 'us') {
+if ($pageLocale === 'us') {
     $estimate = $estimate_us;
+    $dateNewFormat = $dateNewFormatUS;
 }
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +62,7 @@ if ($pageLocale == 'us') {
     <section class="flex flex-wrap p-4">
         <div class="w-1/2">
             <h5 class="text-lg font-bold">Task Estimate:</h5>
-            <p><?php echo $estimate ?></p>
+            <p><?php echo $estimate ?? 'N/A'?></p>
         </div>
         <div class="w-1/2">
             <h5 class="text-lg font-bold">Task Deadline:</h5>

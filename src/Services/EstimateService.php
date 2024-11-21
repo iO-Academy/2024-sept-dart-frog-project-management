@@ -1,7 +1,7 @@
 <?php
 
 class EstimateService {
-    public static function convertEstimate(?int $estimate_us): string
+    public static function convertEstimate(?int $estimate_us): string|null
     {
         $conversions = [
             1  => ['hours' => 4,   'days' => 0.5],
@@ -16,6 +16,6 @@ class EstimateService {
             $days = $conversions[$estimate_us]['days'];
             return "$hours hrs / $days days";
         }
-        return  "";
+        return null;
     }
 }
