@@ -1,4 +1,5 @@
 <?php
+
 require_once 'src/Services/DatabaseService.php';
 require_once 'src/Entities/ProjectEntity.php';
 require_once 'src/Services/ProjectDisplayServices.php';
@@ -8,6 +9,7 @@ require_once 'src/Models/ClientsModel.php';
 require_once 'src/Services/DateService.php';
 require_once 'src/Models/TasksModel.php';
 require_once 'src/Models/UsersModel.php';
+require_once 'src/Services/EstimateService.php';
 
 $db = DatabaseService::connect();
 
@@ -19,11 +21,12 @@ $usersModel = new UsersModel($db);
 $idLink = $_GET['project'] ?? 1;
 $project = $projectsModel->getProjectById($idLink);
 $projectTitle = ProjectDisplayService::displayProject($project);
-$projectDeadline = DateService::reformatDateUK($project->deadline);
+$projectDeadline = DateService::reformatDateUS($project->deadline);
 
 $client = $clientsModel->getClientById($project->client_id);
 $clientTitle = ClientDisplayService::displayClient($client);
 $displayUserNameByProjectId = $usersModel->getUsersByProjectId($idLink);
+
 ?>
 
 <!DOCTYPE html>
@@ -37,8 +40,8 @@ $displayUserNameByProjectId = $usersModel->getUsersByProjectId($idLink);
 <header class="p-3 bg-teal-50 flex justify-between">
     <h1 class="sm:text-5xl text-4xl"><a href="index.php">Project Manager</a></h1>
     <div class="pr-3 flex">
-        <a href=<?php echo "project.php?project=$idLink"?> class="p-3 bg-slate-300 rounded-l-lg border-y border-l">🇬🇧</a>
-        <a href=<?php echo "project_us.php?project=$idLink"?> class="p-3 rounded-r-lg border-y border-r">🇺🇸</a>
+        <a href=<?php echo "project.php?project=$idLink"?> class="p-3 rounded-l-lg border-y border-l">🇬🇧</a>
+        <a href=<?php echo "project_us.php?project=$idLink"?> class="p-3 bg-slate-300 rounded-r-lg border-y border-r">🇺🇸</a>
     </div>
 </header>
 <main class="p-3">
@@ -75,6 +78,7 @@ $displayUserNameByProjectId = $usersModel->getUsersByProjectId($idLink);
 
                     $displayTaskName = $task['task_name'];
                     $displayTaskEstimate = $task['estimate'];
+                    $estimate_us = EstimateService::convertEstimate($displayTaskEstimate);
 
                     $taskID = $task['taskID'];
                     $linkTask = "task.php?task={$taskID}";
@@ -83,7 +87,7 @@ $displayUserNameByProjectId = $usersModel->getUsersByProjectId($idLink);
                         echo "<div class=\"w-full\">
                                 <a class=\"block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl\" href=\"$linkTask\">
                                     <h3 class=\"mb-0 text-red-800 font-bold\">$displayTaskName
-                                        <span class=\"bg-teal-400 px-2 rounded text-white font-bold float-right\">$displayTaskEstimate</span>
+                                        <span class=\"bg-teal-400 px-2 rounded text-white font-bold float-right\"> $estimate_us</span>
                                     </h3>
                                 </a>
                               </div>";
@@ -91,7 +95,7 @@ $displayUserNameByProjectId = $usersModel->getUsersByProjectId($idLink);
                         echo "<div class=\"w-full\">
                                   <a class=\"block border rounded border-slate-600 hover:underline mb-3 p-3 bg-slate-300 text-2xl\" href=\"$linkTask\">
                                     <h3 class=\"mb-0 font-bold\">$displayTaskName
-                                        <span class=\"bg-teal-400 px-2 rounded text-white font-bold float-right\">$displayTaskEstimate</span>
+                                        <span class=\"bg-teal-400 px-2 rounded text-white font-bold float-right\"> $estimate_us</span>
                                     </h3>
                                   </a>
                                   </div>";

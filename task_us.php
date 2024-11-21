@@ -1,9 +1,11 @@
+
 <?php
 
 require_once 'src/Services/DatabaseService.php';
 require_once 'src/Models/TasksModel.php';
 require_once 'src/Entities/TaskEntity.php';
 require_once 'src/Services/DateService.php';
+require_once 'src/Services/EstimateService.php';
 
 $db = DatabaseService::connect();
 $tasksModel = new TasksModel($db);
@@ -20,8 +22,8 @@ $displayTask = $tasksModel->selectTaskById($taskIdLink);
 $displayTaskUser = $tasksModel->selectTaskUser($taskIdLink);
 $displayTaskUserName = $displayTaskUser->name;
 $displayTaskUserAvatar = $displayTaskUser->avatar;
-$dateNewFormat = DateService::reformatDateUK($displayTask->deadline);
-
+$dateNewFormat = DateService::reformatDateUS($displayTask->deadline);
+$estimate_us = EstimateService::convertEstimate($displayTask->estimate);
 ?>
 
 <!DOCTYPE html>
@@ -35,8 +37,8 @@ $dateNewFormat = DateService::reformatDateUK($displayTask->deadline);
 <header class="p-3 bg-teal-50 flex justify-between">
     <h1 class="sm:text-5xl text-4xl"><a href="index.php">Project Manager</a></h1>
     <div class="pr-3 flex">
-        <a href=<?php echo "task.php?task=$taskIdLink"?> class="p-3 bg-slate-300 rounded-l-lg border-y border-l">🇬🇧</a>
-        <a href=<?php echo "task_us.php?task=$taskIdLink"?> class="p-3 rounded-r-lg border-y border-r">🇺🇸</a>
+        <a href=<?php echo "task.php?task=$taskIdLink"?> class="p-3 rounded-l-lg border-y border-l">🇬🇧</a>
+        <a href=<?php echo "task_us.php?task=$taskIdLink"?> class="p-3 bg-slate-300 rounded-r-lg border-y border-r">🇺🇸</a>
     </div>
 </header>
 <main class="p-3">
@@ -52,7 +54,7 @@ $dateNewFormat = DateService::reformatDateUK($displayTask->deadline);
     <section class="flex flex-wrap p-4">
         <div class="w-1/2">
             <h5 class="text-lg font-bold">Task Estimate:</h5>
-            <p><?php echo $displayTask->estimate?></p>
+            <p><?php echo $estimate_us?></p>
         </div>
         <div class="w-1/2">
             <h5 class="text-lg font-bold">Task Deadline:</h5>
