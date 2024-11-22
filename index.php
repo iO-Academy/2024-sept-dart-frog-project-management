@@ -1,3 +1,18 @@
+<?php
+
+require_once 'src/Services/DatabaseService.php';
+require_once 'src/Models/UsersModel.php';
+require_once 'src/Models/ProjectsModel.php';
+require_once 'src/Models/ClientsModel.php';
+require_once 'src/Models/TasksModel.php';
+require_once 'src/Services/ProjectDisplayServices.php';
+require_once 'src/Services/DateService.php';
+
+$db = DatabaseService::connect();
+$projectsModel = new ProjectsModel($db);
+$displayProjects = $projectsModel->getAllProjects();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,45 +25,28 @@
     <h1 class="sm:text-5xl text-4xl"><a href="index.php">Project Manager</a></h1>
 </header>
 <main class='p-3'>
-
 <?php
-
-require_once 'src/Services/DatabaseService.php';
-require_once 'src/Models/UsersModel.php';
-require_once 'src/Models/ProjectsModel.php';
-require_once 'src/Models/ClientsModel.php';
-require_once 'src/Models/TasksModel.php';
-require_once 'src/Services/DeadlineDateService.php';
-
-$db = DatabaseService::connect();
-
-$projectsModel = new ProjectsModel($db);
-
-$testProjectbyID = $projectsModel->getProject(4);
-$displayProjects = $projectsModel->getAllProjects();
-?>
-
-<h2 class='text-4xl font-bold mb-2'>Projects</h2>
-    <section class='grid grid-cols-1 md:grid-cols-4 gap-5 mt-3'>
-        <?php
+    echo "<h2 class='text-4xl font-bold mb-2'>Projects</h2>";
+    echo "<section class='grid grid-cols-1 md:grid-cols-4 gap-5 mt-3'>";
         foreach ($displayProjects as $project)
             {
                 $projectID = $project['id'];
                 $linkProject = "project.php?project={$projectID}";
+
                 $deadlineDate = $project['deadline'];
-                $overDeadline = DeadlineDateService::checkDeadlineOverdue($deadlineDate);
+
+                $overDeadline = DateService::checkDeadlineOverdue($deadlineDate);
 
                 if($overDeadline) {
-                    echo "<a href='{$linkProject}' class='hover:underline rounded-lg border border-red-600 p-4 py-6 text-4xl font-bold w-full bg-red-300'>{$project['name']}</a>";
+
+                        echo "<a href='{$linkProject}' class='hover:underline rounded-lg border border-red-600 p-4 py-6 text-4xl font-bold w-full bg-red-300'>{$project['name']}</a>";
                 } else {
                     echo "<a href='{$linkProject}' class='hover:underline rounded-lg border p-4 py-6 text-4xl font-bold w-full bg-slate-300'>{$project['name']}</a>";
                 }
             }
-        ?>
-    </section>
-
+    echo "</section>";
+?>
 </main>
-
 <footer class="border-t border-slate-300 mt-3 mx-3 p-3 pt-5">
     <p>&copy; Copyright iO Academy 2024</p>
 </footer>

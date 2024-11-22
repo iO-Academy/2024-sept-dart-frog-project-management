@@ -1,6 +1,5 @@
 <?php
 
-require_once 'src/Services/DatabaseService.php';
 require_once 'src/Entities/UserEntity.php';
 
 class UsersModel {
@@ -14,19 +13,15 @@ class UsersModel {
     /**
      * @return UserEntity[]
      */
-    public function getAllUsers(): array
+    public function getUsersByProjectId(int $projectID): array
     {
-        $query = $this->db->prepare("SELECT * FROM `users`");
+        $query = $this->db->prepare("SELECT `users`.`name` AS 'username',`avatar`,`users`.`id` AS `userID`,`project_users`.`project_id`
+                                            FROM `users`
+                                            INNER JOIN `project_users`
+                                            ON `users`.`id`=`project_users`.`user_id` 
+                                            WHERE `project_users`.`project_id` = :projectID;");
         $query->fetchAll(PDO::FETCH_CLASS, UserEntity::class);
-        $query->execute();
+        $query->execute(['projectID' => $projectID]);
         return $query->fetchAll();
-    }
-
-    public function getUserById(int $id) : UserEntity
-    {
-        $query = $this->db->prepare("SELECT * FROM `users` WHERE `id` = :id");
-        $query->fetchAll(PDO::FETCH_CLASS, UserEntity::class);
-        $query->execute(['id' => $id]);
-        return $query->fetch();
     }
 }
