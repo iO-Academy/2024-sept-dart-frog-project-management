@@ -25,19 +25,35 @@ class DateServiceTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($actual);
     }
 
-    public function testReformatDateUKnull()
-{
-    $input = NULL;
-    $actual = DateService::reformatDateUK($input);
-    $expected = 'N/A';
-    $this->assertEquals($expected, $actual);
-}
+    public function testReformatDateUK_null()
+    {
+        $input = NULL;
+        $actual = DateService::reformatDateUK($input);
+        $expected = 'N/A';
+        $this->assertEquals($expected, $actual);
+    }
 
     public function testReformatDateUK_WithDate()
     {
         $input = '2023-04-08';
         $actual = DateService::reformatDateUK($input);
         $expected = '08/04/23';
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testReformatDateUS_null()
+    {
+        $input = NULL;
+        $actual = DateService::reformatDateUS($input);
+        $expected = 'N/A';
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testReformatDateUS_WithDate()
+    {
+        $input = '2023-04-08';
+        $actual = DateService::reformatDateUS($input);
+        $expected = '04-08-2023';
         $this->assertEquals($expected, $actual);
     }
 }

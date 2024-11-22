@@ -18,8 +18,7 @@ class DateService
 
     public static function reformatDateUK(?string $dateinput): string
     {
-        if($dateinput == null)
-        {
+        if ($dateinput == null) {
             return 'N/A';
         }
         $date = new DateTimeImmutable($dateinput);
