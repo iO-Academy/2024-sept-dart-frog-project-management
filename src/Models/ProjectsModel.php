@@ -12,7 +12,7 @@ class ProjectsModel {
     }
     public function getProjectById(int $id): ProjectEntity
     {
-        $query = $this->db->prepare("SELECT `id`, `name`, `client_id`, `description`, `deadline` FROM `projects` WHERE `id` = :id ;");
+        $query = $this->db->prepare("SELECT `id`, `name`, `client_id`, `description`, `deadline` FROM `projects` WHERE `id` = :id;");
         $query->setFetchMode(PDO::FETCH_CLASS, ProjectEntity::class);
         $query->execute(['id' => $id]);
         return $query->fetch();
