@@ -25,6 +25,16 @@ class DateService
         $dateNewFormat = $date->format('d/m/y');
         return $dateNewFormat;
     }
+    public static function reformatDateUS(?string $dateinput): string
+    {
+        if($dateinput == null)
+        {
+            return 'N/A';
+        }
+        $date = new DateTimeImmutable($dateinput);
+        $dateNewFormat = $date->format('m-d-Y');
+        return $dateNewFormat;
+    }
 }
 
 
