@@ -18,6 +18,8 @@ $dateNewFormat = DateService::reformatDateUK($displayTask->deadline);
 $dateNewFormatUS = DateService::reformatDateUS($displayTask->deadline);
 $estimate = $displayTask->estimate;
 $estimate_us = EstimateService::convertEstimate($estimate);
+$taskProjectID = $displayTask->project_id;
+$returnLink = "project.php?project={$taskProjectID}";
 
 if ($pageLocale === 'us') {
     $estimate = $estimate_us;
@@ -50,7 +52,8 @@ if ($pageLocale === 'us') {
 <main class="p-3">
     <div class="flex justify-between mb-3">
         <h2 class="text-4xl font-bold mb-2"><?php echo $displayTask->name?>
-            <a href="project.php" class="text-base text-blue-600 hover:underline ms-3">Return to project</a>
+            <?php echo "<a href='$returnLink' class='text-base text-blue-600 hover:underline ms-3'>Return to project</a>";
+            ?>
         </h2>
         <div class="flex items-center gap-3">
             <h3 class="text-3xl font-bold"><?php echo $displayTaskUser->name?></h3>
