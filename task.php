@@ -15,14 +15,15 @@ $pageLocale = $_GET['location'] ?? 'uk';
 $displayTask = $tasksModel->selectTaskById($taskIdLink);
 $displayTaskUser = $tasksModel->selectTaskUser($taskIdLink);
 $dateNewFormat = DateService::reformatDateUK($displayTask->deadline);
-$dateNewFormatUS = DateService::reformatDateUS($displayTask->deadline);
 $estimate = $displayTask->estimate;
-$estimate_us = EstimateService::convertEstimate($estimate);
+$taskProjectID = $displayTask->project_id;
+$returnLink = "project.php?project={$taskProjectID}&location={$pageLocale}";
 
 if ($pageLocale === 'us') {
-    $estimate = $estimate_us;
-    $dateNewFormat = $dateNewFormatUS;
+    $estimate = EstimateService::convertEstimate($estimate);
+    $dateNewFormat = DateService::reformatDateUS($displayTask->deadline);
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -37,30 +38,30 @@ if ($pageLocale === 'us') {
     <h1 class="sm:text-5xl text-4xl"><a href="index.php">Project Manager</a></h1>
     <div class="pr-3 flex">
         <?php
-        if ($pageLocale == 'uk') {
-            echo "<a href = 'task.php?task=$taskIdLink&location=uk' class='p-3 bg-slate-300 rounded-l-lg border-y border-l' > 🇬🇧</a >";
-            echo "<a href = 'task.php?task=$taskIdLink&location=us' class='p-3 rounded-r-lg border-y border-r' > 🇺🇸</a >";
-        } else {
-            echo "<a href = 'task.php?task=$taskIdLink&location=uk' class='p-3  rounded-l-lg border-y border-l' > 🇬🇧</a >";
-            echo "<a href = 'task.php?task=$taskIdLink&location=us' class='p-3 bg-slate-300 rounded-r-lg border-y border-r' > 🇺🇸</a >";
-        }
+        echo "<a href='task.php?task=$taskIdLink&location=uk' class='p-3 " .
+            ($pageLocale == 'uk' ? "bg-slate-300" : "") .
+            " rounded-l-lg border-y border-l'>🇬🇧</a>";
+        echo "<a href='task.php?task=$taskIdLink&location=us' class='p-3 " .
+            ($pageLocale == 'uk' ? "" : "bg-slate-300") .
+            " rounded-r-lg border-y border-r'>🇺🇸</a>";
         ?>
     </div>
 </header>
 <main class="p-3">
     <div class="flex justify-between mb-3">
-        <h2 class="text-4xl font-bold mb-2"><?php echo $displayTask->name?>
-            <a href="project.php" class="text-base text-blue-600 hover:underline ms-3">Return to project</a>
+        <h2 class="text-4xl font-bold mb-2"><?= $displayTask->name?>
+            <?= "<a href='$returnLink' class='text-base text-blue-600 hover:underline ms-3'>Return to project</a>";
+            ?>
         </h2>
         <div class="flex items-center gap-3">
-            <h3 class="text-3xl font-bold"><?php echo $displayTaskUser->name?></h3>
-            <img class="w-[50px]" src=<?php echo $displayTaskUser->avatar?> alt="profile pic" />
+            <h3 class="text-3xl font-bold"><?= $displayTaskUser->name?></h3>
+            <img class="w-[50px]" src=<?= $displayTaskUser->avatar?> alt="profile pic" />
         </div>
     </div>
     <section class="flex flex-wrap p-4">
         <div class="w-1/2">
             <h5 class="text-lg font-bold">Task Estimate:</h5>
-            <p><?php echo $estimate ?? 'N/A'?></p>
+            <p><?= $estimate ?? 'N/A'?></p>
         </div>
         <div class="w-1/2">
             <h5 class="text-lg font-bold">Task Deadline:</h5>
@@ -73,7 +74,7 @@ if ($pageLocale === 'us') {
         </div>
         <div class="w-full my-3">
             <h5 class="text-lg font-bold">Task Description:</h5>
-            <p><?php echo $displayTask->description?></p>
+            <p><?= $displayTask->description?></p>
         </div>
     </section>
 </main>

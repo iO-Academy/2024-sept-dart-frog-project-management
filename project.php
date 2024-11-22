@@ -23,9 +23,8 @@ $idLink = $_GET['project'] ?? 1;
 $project = $projectsModel->getProjectById($idLink);
 $projectTitle = ProjectDisplayService::displayProject($project);
 $projectDeadline = DateService::reformatDateUK($project->deadline);
-$projectDeadlineUS = DateService::reformatDateUS($project->deadline);
-if ($pageLocale == 'us') {
-    $projectDeadline = $projectDeadlineUS;
+if ($pageLocale === 'us') {
+    $projectDeadline = DateService::reformatDateUS($project->deadline);
 }
 
 $client = $clientsModel->getClientById($project->client_id);
@@ -45,25 +44,23 @@ $displayUserNameByProjectId = $usersModel->getUsersByProjectId($idLink);
 <header class="p-3 bg-teal-50 flex justify-between">
     <h1 class="sm:text-5xl text-4xl"><a href="index.php">Project Manager</a></h1>
     <div class="pr-3 flex">
-        <?php
-        if ($pageLocale == 'uk') {
-            echo "<a href = 'project.php?project=$idLink&location=uk' class='p-3 bg-slate-300 rounded-l-lg border-y border-l' > 🇬🇧</a >";
-            echo "<a href = 'project.php?project=$idLink&location=us' class='p-3 rounded-r-lg border-y border-r' > 🇺🇸</a >";
-        } else {
-            echo "<a href = 'project.php?project=$idLink&location=uk' class='p-3  rounded-l-lg border-y border-l' > 🇬🇧</a >";
-            echo "<a href = 'project.php?project=$idLink&location=us' class='p-3 bg-slate-300 rounded-r-lg border-y border-r' > 🇺🇸</a >";
-        }
-        ?>
+        <?= "<a href='project.php?project=$idLink&location=uk' class='p-3 " .
+            ($pageLocale == 'uk' ? "bg-slate-300" : "") .
+            " rounded-l-lg border-y border-l'>🇬🇧</a>";
+        echo "<a href='project.php?project=$idLink&location=us' class='p-3 " .
+            ($pageLocale == 'uk' ? "" : "bg-slate-300") .
+            " rounded-r-lg border-y border-r'>🇺🇸</a>";
+         ?>
     </div>
 </header>
 <main class="p-3">
     <div class="flex justify-between mb-3">
-        <h2 class="text-4xl font-bold mb-2"><?php echo $projectTitle.$projectDeadline ?>
+        <h2 class="text-4xl font-bold mb-2"><?= $projectTitle.$projectDeadline ?>
             <a href="index.php" class="text-base text-blue-600 hover:underline ms-3">Return to all projects</a>
         </h2>
         <div class="flex items-center gap-3">
-            <h3 class="text-3xl font-bold"><?php echo $clientTitle ?></h3>
-            <img class="w-[50px]" src=<?php echo $client->logo ?> alt="client logo" />
+            <h3 class="text-3xl font-bold"><?= $clientTitle ?></h3>
+            <img class="w-[50px]" src=<?= $client->logo ?> alt="client logo" />
         </div>
     </div>
     <section class="flex gap-5 flex-nowrap h-[70vh] pb-5 overflow-x-auto">
@@ -88,13 +85,10 @@ $displayUserNameByProjectId = $usersModel->getUsersByProjectId($idLink);
 
                     $displayTaskName = $task['task_name'];
                     $displayTaskEstimate = $task['estimate'];
-                    $estimate_us = EstimateService::convertEstimate($displayTaskEstimate);
+                    $displayTaskEstimate = ($pageLocale === 'us') ? EstimateService::convertEstimate($displayTaskEstimate) : $displayTaskEstimate;
 
-                    if ($pageLocale == 'us') {
-                        $displayTaskEstimate = $estimate_us;
-                    }
                     $taskID = $task['taskID'];
-                    $linkTask = "task.php?task={$taskID}";
+                    $linkTask = "task.php?task={$taskID}&location={$pageLocale}";
                     if($overDeadline) {
                         echo "<div class=\"w-full\">
                                 <a class=\"block border rounded border-red-600 hover:underline mb-3 p-3 bg-red-200 border-red-600 text-2xl\" href=\"$linkTask\">
